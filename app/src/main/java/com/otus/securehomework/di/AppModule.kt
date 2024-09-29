@@ -1,11 +1,16 @@
 package com.otus.securehomework.di
 
 import android.content.Context
+import android.os.Build
 import com.otus.securehomework.data.repository.AuthRepository
 import com.otus.securehomework.data.repository.UserRepository
 import com.otus.securehomework.data.source.local.UserPreferences
 import com.otus.securehomework.data.source.network.AuthApi
 import com.otus.securehomework.data.source.network.UserApi
+import com.otus.securehomework.data.source.secure.KeyProvider
+import com.otus.securehomework.data.source.secure.KeyProvider23AndHigherApiImpl
+import com.otus.securehomework.data.source.secure.KeyProviderUnder23ApiImpl
+import com.otus.securehomework.data.source.secure.TextCipher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,9 +47,19 @@ object AppModule {
     @Singleton
     @Provides
     fun provideUserPreferences(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
+        textCipher: TextCipher
     ): UserPreferences {
-        return UserPreferences(context)
+        return UserPreferences(context, textCipher)
+    }
+
+    @Singleton
+    @Provides
+    fun provideKeyProvider(
+        @ApplicationContext context: Context
+    ): KeyProvider {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) KeyProvider23AndHigherApiImpl()
+        else KeyProviderUnder23ApiImpl(context)
     }
 
     @Provides
