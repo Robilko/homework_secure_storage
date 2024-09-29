@@ -1,8 +1,10 @@
 package com.otus.securehomework.presentation
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
@@ -58,6 +60,7 @@ fun Fragment.handleApiError(
             R.string.error_internet,
             retry
         )
+
         failure.errorCode == 401 -> {
             if (this is LoginFragment) {
                 requireView().snackbar(R.string.error_enter)
@@ -65,9 +68,13 @@ fun Fragment.handleApiError(
                 logout()
             }
         }
+
         else -> {
             val error = failure.errorBody?.string().toString()
             requireView().snackbar(error)
         }
     }
 }
+
+fun Context.showToastShort(message: String) =
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

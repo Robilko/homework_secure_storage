@@ -14,4 +14,11 @@
     <string name="forgot_your_password">Forgot your password?</string>
     <string name="register_now">Register Now</string>
     <string name="already_have_an_account_login_now">Already have an account? <b>Login Now</b></string>
+    <string name="biometric_error_no_hardware">There is no suitable hardware</string>
+    <string name="biometric_error_hw_unavailable">The hardware is unavailable. Try again later</string>
+    <string name="biometric_error_none_enrolled">No biometric or device credential is enrolled</string>
+    <string name="biometric_error_security_update_required">A security vulnerability has been discovered with one or more hardware sensors</string>
+    <string name="biometric_error_unsupported">The specified options are incompatible with the current Android version</string>
+    <string name="biometric_status_unknown">Unable to determine whether the user can authenticate</string>
+    <string name="other_biometric_error">Biometric Error</string>
 </resources>
